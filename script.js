@@ -1,29 +1,28 @@
 const noButton = document.getElementById('no-button');
-const buttonsContainer = document.querySelector('.buttons');
+const container = document.querySelector('.container');
 
-// Function to move the "No" button far away from the cursor
-function moveNoButton(event) {
-  const buttonRect = noButton.getBoundingClientRect();
-  const containerRect = buttonsContainer.getBoundingClientRect();
+let cornerIndex = 0; // Track which corner to move to next
 
-  // Cursor's position
-  const mouseX = event.clientX;
-  const mouseY = event.clientY;
+// Array of corner positions
+const corners = [
+  { top: '0', left: '0' }, // Top-left
+  { top: '0', left: 'calc(100% - 100px)' }, // Top-right (adjusted for button width)
+  { top: 'calc(100% - 50px)', left: '0' }, // Bottom-left (adjusted for button height)
+  { top: 'calc(100% - 50px)', left: 'calc(100% - 100px)' }, // Bottom-right
+];
 
-  // Calculate new random position far away from the cursor
-  let newX, newY;
+// Function to move the "No" button to the next corner
+function moveNoButton() {
+  // Get the next corner's position
+  const { top, left } = corners[cornerIndex];
 
-  do {
-    newX = Math.random() * containerRect.width - buttonRect.width / 2;
-    newY = Math.random() * containerRect.height - buttonRect.height / 2;
-  } while (
-    Math.abs(newX - mouseX) < 300 || // Ensure it's far enough horizontally
-    Math.abs(newY - mouseY) < 300    // Ensure it's far enough vertically
-  );
+  // Apply the new position
+  noButton.style.top = top;
+  noButton.style.left = left;
 
-  // Apply new position
-  noButton.style.transform = `translate(${newX}px, ${newY}px)`;
+  // Increment the corner index (loop back to 0 if it exceeds array length)
+  cornerIndex = (cornerIndex + 1) % corners.length;
 }
 
-// Add event listener for mouseover
+// Add event listener for hover
 noButton.addEventListener('mouseover', moveNoButton);

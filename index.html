@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8e8a6;
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .background-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            perspective: 1000px;
+        }
+        /* Top row images (relative sizing) */
+        .image-container:nth-child(-n+3) img {
+            max-width: 80%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: float 3s ease-in-out infinite;
+        }
+        /* Bottom row images (fixed sizing) */
+        .image-container:nth-child(n+4) img {
+            width: 250px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: float 3s ease-in-out infinite;
+        }
+        /* Animation delays */
+        .image-container:nth-child(1) img { animation-delay: 0s; }
+        .image-container:nth-child(2) img { animation-delay: 0.5s; }
+        .image-container:nth-child(3) img { animation-delay: 1s; }
+        .image-container:nth-child(4) img { animation-delay: 1.5s; }
+        .image-container:nth-child(5) img { animation-delay: 2s; }
+        .image-container:nth-child(6) img { animation-delay: 2.5s; }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .background-images {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+            }
+            .image-container:nth-child(n+4) img {
+                width: 180px;
+                height: 130px;
+            }
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            background-color: #d9534f;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            z-index: 1;
+        }
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+        .letter {
+            display: none;
+            position: absolute;
+            top: 10px;
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-image: linear-gradient(white 95%, #f0f0f0 100%);
+            border: 1px solid #ccc;
+        }
+        .letter h2 {
+            margin-top: 0;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 24px;
+            color: #d9534f;
+        }
+        .letter p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-images" id="backgroundImages">
+        <div class="image-container">
+            <img src="bday3.png" alt="Memory 1">
+        </div>
+        <div class="image-container">
+            <img src="bday4.png" alt="Memory 2">
+        </div>
+        <div class="image-container">
+            <img src="fries1.png" alt="Memory 3">
+        </div>
+        <div class="image-container">
+            <img src="bday2.jpg" alt="Memory 4">
+        </div>
+        <div class="image-container">
+            <img src="bday1.png" alt="Memory 5">
+        </div>
+        <div class="image-container">
+            <img src="result.png" alt="Memory 6">
+        </div>
+    </div>
+    <div class="envelope" onclick="openLetter()">
+        Click to Open! - Henry
+        <div class="letter" id="letter">
+            <h2>Happy 17th Birthday Mary!</h2>
+            <p></p>
+            <p>🎉🎂🎁</p>
+        </div>
+    </div>
+    <script>
+        function openLetter() {
+            var letter = document.getElementById("letter");
+            var backgroundImages = document.getElementById("backgroundImages");
+            var images = backgroundImages.getElementsByTagName("img");
+            
+            if (letter.style.display === "none" || letter.style.display === "") {
+                letter.style.display = "block";
+                backgroundImages.style.opacity = "1";
+                for (var i = 0; i < images.length; i++) {
+                    images[i].style.display = "block";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

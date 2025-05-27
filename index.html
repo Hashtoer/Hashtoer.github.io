@@ -3,535 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Tools Showcase</title>
+    <title>Medical Tools Interactive Guide</title>
     <style>
-        :root {
-            --primary: #4a148c;
-            --secondary: #6a1b9a;
-            --accent1: #00b0ff;
-            --accent2: #ff4081;
-            --accent3: #76ff03;
-            --accent4: #ffea00;
-            --accent5: #ff9100;
-            --light: #f5f5f5;
-            --dark: #212121;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        * {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            color: var(--light);
-            overflow-x: hidden;
-        }
-        
-        header {
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        h1 {
-            margin: 0;
-            font-size: 3rem;
-            background: linear-gradient(to right, var(--accent1), var(--accent2), var(--accent3), var(--accent4), var(--accent5));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            color: var(--light);
-            font-weight: 300;
-        }
-        
-        .tools-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 50px 20px;
-            position: relative;
-            perspective: 1000px;
-        }
-        
-        .tool-card {
-            width: 200px;
-            height: 200px;
-            margin: 20px;
-            perspective: 1000px;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .tool-card:nth-child(1) { animation-delay: 0s; }
-        .tool-card:nth-child(2) { animation-delay: 0.5s; }
-        .tool-card:nth-child(3) { animation-delay: 1s; }
-        .tool-card:nth-child(4) { animation-delay: 1.5s; }
-        .tool-card:nth-child(5) { animation-delay: 2s; }
-        .tool-card:nth-child(6) { animation-delay: 2.5s; }
-        .tool-card:nth-child(7) { animation-delay: 3s; }
-        .tool-card:nth-child(8) { animation-delay: 3.5s; }
-        .tool-card:nth-child(9) { animation-delay: 4s; }
-        .tool-card:nth-child(10) { animation-delay: 4.5s; }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-        }
-        
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-        
-        .tool-card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
-            backface-visibility: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
             box-sizing: border-box;
         }
-        
-        .card-front {
-            background: linear-gradient(45deg, var(--accent1), var(--accent2));
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
-        
-        .card-back {
-            background: var(--light);
-            color: var(--dark);
-            transform: rotateY(180deg);
-            overflow: auto;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        
-        .tool-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-            transition: transform 0.3s;
-        }
-        
-        .tool-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .card-front:hover .tool-icon {
-            transform: scale(1.2);
-        }
-        
-        .back-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--secondary);
-        }
-        
-        .back-content {
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-bottom: 10px;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--accent2);
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
             color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 16px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            z-index: 2;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: 2px solid transparent;
         }
-        
-        .close-btn:hover {
-            transform: scale(1.1);
-            background: var(--accent5);
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border-color: #667eea;
         }
-        
-        .tool-card:nth-child(1) .card-front { background: linear-gradient(45deg, #FF5722, #FFC107); }
-        .tool-card:nth-child(2) .card-front { background: linear-gradient(45deg, #2196F3, #00BCD4); }
-        .tool-card:nth-child(3) .card-front { background: linear-gradient(45deg, #4CAF50, #8BC34A); }
-        .tool-card:nth-child(4) .card-front { background: linear-gradient(45deg, #9C27B0, #673AB7); }
-        .tool-card:nth-child(5) .card-front { background: linear-gradient(45deg, #F44336, #E91E63); }
-        .tool-card:nth-child(6) .card-front { background: linear-gradient(45deg, #009688, #00BCD4); }
-        .tool-card:nth-child(7) .card-front { background: linear-gradient(45deg, #FF9800, #FF5722); }
-        .tool-card:nth-child(8) .card-front { background: linear-gradient(45deg, #3F51B5, #2196F3); }
-        .tool-card:nth-child(9) .card-front { background: linear-gradient(45deg, #795548, #9E9E9E); }
-        .tool-card:nth-child(10) .card-front { background: linear-gradient(45deg, #607D8B, #455A64); }
-        
-        .particles {
+
+        .tool-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .tool-description {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tool-description.active {
+            display: block;
+        }
+
+        .tool-description h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .tool-description p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .examples {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .examples h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .examples ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .examples li {
+            color: #666;
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .examples li:before {
+            content: "•";
+            color: #667eea;
             position: absolute;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
         }
-        
+
+        .click-hint {
+            text-align: center;
+            color: white;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .active-card {
+            background: rgba(255, 255, 255, 1);
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+
         @media (max-width: 768px) {
-            .tools-container {
-                padding: 20px 10px;
-            }
-            
-            .tool-card {
-                width: 160px;
-                height: 160px;
-                margin: 10px;
-            }
-            
-            .tool-icon {
-                font-size: 40px;
-            }
-            
-            .tool-name {
-                font-size: 1.1rem;
-            }
-            
-            h1 {
+            .header h1 {
                 font-size: 2rem;
             }
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: var(--light);
-            font-size: 0.9rem;
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
-    
-    <header>
-        <h1>Medical Tools Showcase</h1>
-        <p class="subtitle">Made by Club President 😎</p>
-    </header>
-    
-    <div class="tools-container" id="toolsContainer">
-        <!-- Tools will be added here by JavaScript -->
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Medical Tools Interactive Guide</h1>
+            <p>Click on any tool to learn about its function and real-world applications</p>
+        </div>
+
+        <div class="tools-grid">
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">🩺</div>
+                <div class="tool-name">Stethoscope</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>A stethoscope amplifies internal body sounds, allowing healthcare providers to listen to the heart, lungs, and other organs.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Detecting heart murmurs or irregular heartbeats</li>
+                            <li>Listening for lung congestion in pneumonia patients</li>
+                            <li>Checking bowel sounds after surgery</li>
+                            <li>Monitoring blood pressure during manual readings</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">🌡️</div>
+                <div class="tool-name">Thermometer</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>Measures body temperature to detect fever or hypothermia, which are important indicators of illness or infection.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Checking for fever in flu patients</li>
+                            <li>Monitoring temperature during surgery</li>
+                            <li>Detecting hypothermia in emergency situations</li>
+                            <li>Tracking temperature changes in ICU patients</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">💉</div>
+                <div class="tool-name">Syringe</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>A syringe injects medications, vaccines, or other fluids into the body, or withdraws blood and other samples for testing.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Administering vaccines like COVID-19 or flu shots</li>
+                            <li>Giving insulin injections to diabetic patients</li>
+                            <li>Drawing blood for lab tests</li>
+                            <li>Injecting local anesthesia before minor procedures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">⚖️</div>
+                <div class="tool-name">Blood Pressure Cuff</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>Measures the pressure of blood against artery walls to assess cardiovascular health and detect hypertension or hypotension.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Routine checkups to screen for high blood pressure</li>
+                            <li>Monitoring patients during surgery</li>
+                            <li>Checking for shock in emergency situations</li>
+                            <li>Adjusting medication dosages for hypertensive patients</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">🔍</div>
+                <div class="tool-name">Otoscope</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>An otoscope illuminates and magnifies the inside of the ear canal and eardrum to diagnose ear infections and other problems.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Diagnosing ear infections in children</li>
+                            <li>Checking for earwax blockages</li>
+                            <li>Detecting perforated eardrums</li>
+                            <li>Examining ears after hearing loss complaints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">✂️</div>
+                <div class="tool-name">Surgical Scissors</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>Specialized scissors designed to cut tissue, sutures, and other materials during medical procedures with precision and sterility.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Cutting sutures after wound healing</li>
+                            <li>Trimming tissue during surgical procedures</li>
+                            <li>Cutting bandages and medical tape</li>
+                            <li>Performing precise cuts during dissections</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">🔦</div>
+                <div class="tool-name">Penlight</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>A small, bright flashlight used to examine pupils, throat, and other body parts that need additional illumination during examination.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Testing pupil response to light in neurological exams</li>
+                            <li>Examining the throat for strep throat</li>
+                            <li>Checking for signs of concussion</li>
+                            <li>Illuminating wounds for better visibility</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" onclick="toggleDescription(this)">
+                <div class="tool-icon">🔨</div>
+                <div class="tool-name">Reflex Hammer</div>
+                <div class="tool-description">
+                    <h3>What it does:</h3>
+                    <p>A small hammer used to test reflexes by tapping tendons, helping doctors assess the nervous system's function.</p>
+                    <div class="examples">
+                        <h4>Real-world examples:</h4>
+                        <ul>
+                            <li>Testing knee-jerk reflex during physical exams</li>
+                            <li>Checking reflexes after spinal cord injuries</li>
+                            <li>Diagnosing neurological conditions like multiple sclerosis</li>
+                            <li>Monitoring nerve function in diabetic patients</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="click-hint">
+            💡 Click on any tool card above to reveal detailed information!
+        </div>
     </div>
-    
-    <footer>
-        <p>©Made by Henry He and Ledion Puca.</p>
-    </footer>
-    
+
     <script>
-        // Medical Tools Data
-        const medicalTools = [
-            {
-                name: "Stethoscope",
-                icon: "🔊",
-                description: "A stethoscope is an acoustic medical device for auscultation, or listening to internal sounds of the human body. It is commonly used to listen to heart sounds, breathing, and intestinal movements.",
-                usage: "Used by healthcare professionals to assess the heart, lungs, and abdomen."
-            },
-            {
-                name: "Sphygmomanometer",
-                icon: "💪",
-                description: "A device used to measure blood pressure, consisting of an inflatable cuff to restrict blood flow and a mercury or mechanical manometer to measure pressure.",
-                usage: "Essential for diagnosing hypertension and monitoring blood pressure."
-            },
-            {
-                name: "Otoscope",
-                icon: "👂",
-                description: "An otoscope is a medical device which is used to look into the ears. It consists of a handle and a head which holds a light and a magnifying lens.",
-                usage: "Used to examine the external ear canal and tympanic membrane (eardrum)."
-            },
-            {
-                name: "Pulse Oximeter",
-                icon: "💓",
-                description: "A small, clip-like device that attaches to a body part, like a finger or ear lobe, to measure oxygen saturation in the blood.",
-                usage: "Monitors oxygen levels in patients with respiratory or cardiovascular conditions."
-            },
-            {
-                name: "Thermometer",
-                icon: "🌡️",
-                description: "Medical thermometers are used to measure human body temperature. Various types include digital, infrared, and traditional mercury thermometers.",
-                usage: "Used to detect fever and monitor body temperature changes."
-            },
-            {
-                name: "Ophthalmoscope",
-                icon: "👁️",
-                description: "An instrument used to examine the interior of the eye, particularly the retina. It consists of a concave mirror with a hole in the middle and a light source.",
-                usage: "Enables examination of the retina and other structures of the eye."
-            },
-            {
-                name: "Electrocardiograph (ECG)",
-                icon: "📈",
-                description: "A machine that records the electrical activity of the heart over time, producing a graph called an electrocardiogram.",
-                usage: "Used to detect heart abnormalities and monitor cardiac function."
-            },
-            {
-                name: "Reflex Hammer",
-                icon: "🔨",
-                description: "A medical tool used to test deep tendon reflexes. It typically has a rubber triangular head attached to a handle.",
-                usage: "Used in neurological examinations to test reflexes and assess nerve function."
-            },
-            {
-                name: "Surgical Scalpel",
-                icon: "🔪",
-                description: "A small, extremely sharp bladed instrument used for surgery, anatomical dissection, and various crafting applications.",
-                usage: "Primary cutting tool during surgical procedures."
-            },
-            {
-                name: "Endoscope",
-                icon: "🔍",
-                description: "A long, thin, flexible tube that has a light and camera at one end, used to look inside the body during minimally invasive procedures.",
-                usage: "Allows visualization of internal organs and tissues without major surgery."
-            }
-        ];
-        
-        // Generate tool cards
-        const toolsContainer = document.getElementById('toolsContainer');
-        
-        medicalTools.forEach((tool, index) => {
-            const toolCard = document.createElement('div');
-            toolCard.className = 'tool-card';
+        function toggleDescription(card) {
+            const description = card.querySelector('.tool-description');
+            const isActive = description.classList.contains('active');
             
-            const cardInner = document.createElement('div');
-            cardInner.className = 'card-inner';
-            
-            const frontFace = document.createElement('div');
-            frontFace.className = 'card-front';
-            frontFace.innerHTML = `
-                <div class="tool-icon">${tool.icon}</div>
-                <div class="tool-name">${tool.name}</div>
-            `;
-            
-            const backFace = document.createElement('div');
-            backFace.className = 'card-back';
-            backFace.innerHTML = `
-                <button class="close-btn">✕</button>
-                <h3 class="back-title">${tool.name}</h3>
-                <p class="back-content"><strong>Description:</strong> ${tool.description}</p>
-                <p class="back-content"><strong>Usage:</strong> ${tool.usage}</p>
-            `;
-            
-            cardInner.appendChild(frontFace);
-            cardInner.appendChild(backFace);
-            toolCard.appendChild(cardInner);
-            toolsContainer.appendChild(toolCard);
-            
-            // Flip card when clicking on front face
-            frontFace.addEventListener('click', () => {
-                toolCard.classList.add('flipped');
+            // Close all other descriptions
+            document.querySelectorAll('.tool-description').forEach(desc => {
+                desc.classList.remove('active');
+            });
+            document.querySelectorAll('.tool-card').forEach(c => {
+                c.classList.remove('active-card');
             });
             
-            // Close card when clicking close button
-            const closeBtn = backFace.querySelector('.close-btn');
-            closeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toolCard.classList.remove('flipped');
+            // Toggle current description
+            if (!isActive) {
+                description.classList.add('active');
+                card.classList.add('active-card');
+            }
+        }
+
+        // Add keyboard accessibility
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.setAttribute('tabindex', '0');
+            card.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleDescription(this);
+                }
             });
         });
-        
-        // Create colorful particles
-        class Particle {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = Math.random() * 2 - 1;
-                this.vy = Math.random() * 2 - 1;
-                this.radius = Math.random() * 3 + 1;
-                this.color = this.getRandomColor();
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            
-            getRandomColor() {
-                const colors = [
-                    '#FF5722', '#FFC107', '#2196F3', '#00BCD4', 
-                    '#4CAF50', '#8BC34A', '#9C27B0', '#673AB7',
-                    '#F44336', '#E91E63', '#009688', '#FF9800'
-                ];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
-            
-            draw() {
-                this.ctx.beginPath();
-                this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                this.ctx.fillStyle = this.color;
-                this.ctx.globalAlpha = this.opacity;
-                this.ctx.fill();
-            }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                if (this.x < 0 || this.x > this.canvas.width) {
-                    this.vx = -this.vx;
-                }
-                
-                if (this.y < 0 || this.y > this.canvas.height) {
-                    this.vy = -this.vy;
-                }
-                
-                this.draw();
-            }
-        }
-        
-        // Setup particles canvas
-        function setupParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const canvas = document.createElement('canvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particlesContainer.appendChild(canvas);
-            
-            const ctx = canvas.getContext('2d');
-            const particles = [];
-            
-            // Create particles
-            for (let i = 0; i < 100; i++) {
-                particles.push(new Particle(canvas));
-            }
-            
-            // Animation loop
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                particles.forEach(particle => {
-                    particle.update();
-                });
-                
-                requestAnimationFrame(animate);
-            }
-            
-            animate();
-            
-            // Resize handling
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-        }
-        
-        // Init particles after page load
-        window.addEventListener('load', setupParticles);
-    </script>
-</body>
-</html>;
-                this.ctx = canvas.getContext('2d');
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = Math.random() * 2 - 1;
-                this.vy = Math.random() * 2 - 1;
-                this.radius = Math.random() * 3 + 1;
-                this.color = this.getRandomColor();
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            
-            getRandomColor() {
-                const colors = [
-                    '#FF5722', '#FFC107', '#2196F3', '#00BCD4', 
-                    '#4CAF50', '#8BC34A', '#9C27B0', '#673AB7',
-                    '#F44336', '#E91E63', '#009688', '#FF9800'
-                ];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
-            
-            draw() {
-                this.ctx.beginPath();
-                this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                this.ctx.fillStyle = this.color;
-                this.ctx.globalAlpha = this.opacity;
-                this.ctx.fill();
-            }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                if (this.x < 0 || this.x > this.canvas.width) {
-                    this.vx = -this.vx;
-                }
-                
-                if (this.y < 0 || this.y > this.canvas.height) {
-                    this.vy = -this.vy;
-                }
-                
-                this.draw();
-            }
-        }
-        
-        // Setup particles canvas
-        function setupParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const canvas = document.createElement('canvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particlesContainer.appendChild(canvas);
-            
-            const ctx = canvas.getContext('2d');
-            const particles = [];
-            
-            // Create particles
-            for (let i = 0; i < 100; i++) {
-                particles.push(new Particle(canvas));
-            }
-            
-            // Animation loop
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                particles.forEach(particle => {
-                    particle.update();
-                });
-                
-                requestAnimationFrame(animate);
-            }
-            
-            animate();
-            
-            // Resize handling
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-        }
-        
-        // Init particles after page load
-        window.addEventListener('load', setupParticles);
     </script>
 </body>
 </html>

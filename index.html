@@ -3,351 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Tools Interactive Guide</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .tool-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border: 2px solid transparent;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            border-color: #667eea;
-        }
-
-        .tool-icon {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 15px;
-            color: #667eea;
-        }
-
-        .tool-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-            text-align: center;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .tool-description {
-            display: none;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .tool-description.active {
-            display: block;
-        }
-
-        .tool-description h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .tool-description p {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .examples {
-            background: #f8f9ff;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-
-        .examples h4 {
-            color: #667eea;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .examples ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .examples li {
-            color: #666;
-            margin-bottom: 5px;
-            padding-left: 15px;
-            position: relative;
-        }
-
-        .examples li:before {
-            content: "•";
-            color: #667eea;
-            position: absolute;
-            left: 0;
-        }
-
-        .click-hint {
-            text-align: center;
-            color: white;
-            font-style: italic;
-            opacity: 0.8;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .active-card {
-            background: rgba(255, 255, 255, 1);
-            border-color: #667eea;
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Code Typing Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🏥 Medical Tools Interactive Guide</h1>
-            <p>Click on any tool to learn about its function and real-world applications</p>
+        <h1>🚀 Code Typing Game</h1>
+
+        <div id="language-selection" class="language-selection">
+            <button class="lang-btn javascript" onclick="selectLanguage('javascript')">JavaScript</button>
+            <button class="lang-btn java" onclick="selectLanguage('java')">Java</button>
+            <button class="lang-btn python" onclick="selectLanguage('python')">Python</button>
         </div>
 
-        <div class="tools-grid">
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">🩺</div>
-                <div class="tool-name">Stethoscope</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>A stethoscope amplifies internal body sounds, allowing healthcare providers to listen to the heart, lungs, and other organs.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Detecting heart murmurs or irregular heartbeats</li>
-                            <li>Listening for lung congestion in pneumonia patients</li>
-                            <li>Checking bowel sounds after surgery</li>
-                            <li>Monitoring blood pressure during manual readings</li>
-                        </ul>
-                    </div>
+        <div id="typing-area" class="typing-area">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="speed">0</div>
+                    <div>WPM</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="accuracy">100</div>
+                    <div>% Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="time">0</div>
+                    <div>Seconds</div>
                 </div>
             </div>
 
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">🌡️</div>
-                <div class="tool-name">Thermometer</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>Measures body temperature to detect fever or hypothermia, which are important indicators of illness or infection.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Checking for fever in flu patients</li>
-                            <li>Monitoring temperature during surgery</li>
-                            <li>Detecting hypothermia in emergency situations</li>
-                            <li>Tracking temperature changes in ICU patients</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="code-display" id="code-display"></div>
+            <textarea id="typing-input" class="typing-input" placeholder="Start typing the code above..." autocorrect="off"></textarea>
+
+            <div class="controls">
+                <button class="btn" onclick="startTest()">New Code</button>
+                <button class="btn secondary" onclick="goBack()">Back to Languages</button>
             </div>
 
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">💉</div>
-                <div class="tool-name">Syringe</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>A syringe injects medications, vaccines, or other fluids into the body, or withdraws blood and other samples for testing.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Administering vaccines like COVID-19 or flu shots</li>
-                            <li>Giving insulin injections to diabetic patients</li>
-                            <li>Drawing blood for lab tests</li>
-                            <li>Injecting local anesthesia before minor procedures</li>
-                        </ul>
-                    </div>
-                </div>
+            <div id="explanation" class="explanation hidden">
+                <h3>What does this code do?</h3>
+                <p id="explanation-text"></p>
             </div>
-
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">⚖️</div>
-                <div class="tool-name">Blood Pressure Cuff</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>Measures the pressure of blood against artery walls to assess cardiovascular health and detect hypertension or hypotension.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Routine checkups to screen for high blood pressure</li>
-                            <li>Monitoring patients during surgery</li>
-                            <li>Checking for shock in emergency situations</li>
-                            <li>Adjusting medication dosages for hypertensive patients</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">🔍</div>
-                <div class="tool-name">Otoscope</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>An otoscope illuminates and magnifies the inside of the ear canal and eardrum to diagnose ear infections and other problems.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Diagnosing ear infections in children</li>
-                            <li>Checking for earwax blockages</li>
-                            <li>Detecting perforated eardrums</li>
-                            <li>Examining ears after hearing loss complaints</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">✂️</div>
-                <div class="tool-name">Surgical Scissors</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>Specialized scissors designed to cut tissue, sutures, and other materials during medical procedures with precision and sterility.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Cutting sutures after wound healing</li>
-                            <li>Trimming tissue during surgical procedures</li>
-                            <li>Cutting bandages and medical tape</li>
-                            <li>Performing precise cuts during dissections</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">🔦</div>
-                <div class="tool-name">Penlight</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>A small, bright flashlight used to examine pupils, throat, and other body parts that need additional illumination during examination.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Testing pupil response to light in neurological exams</li>
-                            <li>Examining the throat for strep throat</li>
-                            <li>Checking for signs of concussion</li>
-                            <li>Illuminating wounds for better visibility</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-card" onclick="toggleDescription(this)">
-                <div class="tool-icon">🔨</div>
-                <div class="tool-name">Reflex Hammer</div>
-                <div class="tool-description">
-                    <h3>What it does:</h3>
-                    <p>A small hammer used to test reflexes by tapping tendons, helping doctors assess the nervous system's function.</p>
-                    <div class="examples">
-                        <h4>Real-world examples:</h4>
-                        <ul>
-                            <li>Testing knee-jerk reflex during physical exams</li>
-                            <li>Checking reflexes after spinal cord injuries</li>
-                            <li>Diagnosing neurological conditions like multiple sclerosis</li>
-                            <li>Monitoring nerve function in diabetic patients</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="click-hint">
-            💡 Click on any tool card above to reveal detailed information!
         </div>
     </div>
 
-    <script>
-        function toggleDescription(card) {
-            const description = card.querySelector('.tool-description');
-            const isActive = description.classList.contains('active');
-            
-            // Close all other descriptions
-            document.querySelectorAll('.tool-description').forEach(desc => {
-                desc.classList.remove('active');
-            });
-            document.querySelectorAll('.tool-card').forEach(c => {
-                c.classList.remove('active-card');
-            });
-            
-            // Toggle current description
-            if (!isActive) {
-                description.classList.add('active');
-                card.classList.add('active-card');
-            }
-        }
-
-        // Add keyboard accessibility
-        document.querySelectorAll('.tool-card').forEach(card => {
-            card.setAttribute('tabindex', '0');
-            card.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleDescription(this);
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

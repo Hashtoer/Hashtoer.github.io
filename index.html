@@ -3,46 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Typing Game</title>
+    <title>GPA Calculator - Weighted Average</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>🚀 Code Typing Game</h1>
+        <header>
+            <h1>📊 GPA Calculator</h1>
+            <p class="subtitle">Calculate your unweighted and weighted GPA</p>
+        </header>
 
-        <div id="language-selection" class="language-selection">
-            <button class="lang-btn javascript" onclick="selectLanguage('javascript')">JavaScript</button>
-            <button class="lang-btn java" onclick="selectLanguage('java')">Java</button>
-            <button class="lang-btn python" onclick="selectLanguage('python')">Python</button>
+        <div class="info-box">
+            <h3>📋 Instructions</h3>
+            <p><strong>Exclude:</strong> Gym/PE classes and College Now classes</p>
+            <p><strong>Enter:</strong> All your academic classes with their numerical grades</p>
+            <p><strong>Weighting:</strong> AP classes add 10 points, Honor classes add 5 points to your weighted GPA</p>
         </div>
 
-        <div id="typing-area" class="typing-area">
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="speed">0</div>
-                    <div>WPM</div>
+        <div class="calculator-section">
+            <h2 style="margin-bottom: 20px; color: #2d3748;">Enter Your Classes</h2>
+            
+            <div class="class-headers">
+                <div class="header-label">Class Name</div>
+                <div class="header-label">Grade</div>
+                <div class="header-label">Class Type</div>
+                <div class="header-label"></div>
+            </div>
+
+            <div class="classes-container" id="classesContainer">
+                <!-- Classes will be added here -->
+            </div>
+
+            <button class="add-class-btn" onclick="addClass()">+ Add Class</button>
+            <button class="calculate-btn" onclick="calculateGPA()">Calculate GPA</button>
+
+            <div class="results" id="results" style="display: none;">
+                <div class="result-card unweighted-card">
+                    <div class="result-label">Unweighted GPA</div>
+                    <div class="result-value" id="unweightedGPA">0.00</div>
+                    <div class="result-scale">out of 100</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="accuracy">100</div>
-                    <div>% Accuracy</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="time">0</div>
-                    <div>Seconds</div>
+                <div class="result-card weighted-card">
+                    <div class="result-label">Weighted GPA</div>
+                    <div class="result-value" id="weightedGPA">0.00</div>
+                    <div class="result-scale">out of 100</div>
                 </div>
             </div>
 
-            <div class="code-display" id="code-display"></div>
-            <textarea id="typing-input" class="typing-input" placeholder="Start typing the code above..." autocorrect="off"></textarea>
-
-            <div class="controls">
-                <button class="btn" onclick="startTest()">New Code</button>
-                <button class="btn secondary" onclick="goBack()">Back to Languages</button>
-            </div>
-
-            <div id="explanation" class="explanation hidden">
-                <h3>What does this code do?</h3>
-                <p id="explanation-text"></p>
+            <div class="explanation">
+                <h4>How it works:</h4>
+                <p><strong>Unweighted GPA:</strong> Simple average of all your grades</p>
+                <p><strong>Weighted GPA:</strong> Adds bonus points for advanced classes</p>
+                <p>• AP Classes: +10 points to your grade</p>
+                <p>• Honor Classes: +5 points to your grade</p>
+                <p>• Regular Classes: No bonus points</p>
             </div>
         </div>
     </div>
